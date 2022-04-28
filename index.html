@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>משחק הזיכרון</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
     <style>
         .title{
             text-align: center;
@@ -14,39 +16,49 @@
         }
         .myCards{
             min-height: 500px;
-            gap: 10px;
-            background-color:chartreuse;
+            gap: 50px;
+            background-color:#993300;
             overflow: hidden;
-            position: relative;
+            /* position: relative; */
             width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4,100px);
+            justify-content: center;
+            border: 2px solid black;
+            /* background: rgba(208,228,245,0.73) url("/images/smiley.png") no-repeat scroll 0 0; */
         }
     
         .card{
-            /* display: inline; */
-            /* height: 200px; */
-            background-color: blue;
-            gap: 10px;
-            margin: 50px;
-            /* width: 200px; */
-            border: 2px solid chartreuse;
-            /* padding: 10px;     */
+            background-color: #3B7A57;
+            gap: 1px;
+            margin: 1px;
             text-align: center;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 50px;
-            flex-wrap: wrap;
-            text-align:center;
-            -webkit-text-size-adjust: auto;
+            /* flex-wrap: wrap; */
+            text-align: center;
+            /* -webkit-text-size-adjust: auto; */
             cursor: pointer;
-            display: table-cell;
-        width: 250px;
-        height: 80px;
-        padding: 10px;
+            /* display: table-cell; */
+            width: 200px;
+            height: 200px;
+            padding: 20px;
             border-radius: 10px;
             /* box-shadow:inset; */
-        vertical-align: middle; 
-        text-shadow: 0px 15px 5px rgba(0,0,0,0.1), 10px 20px 5px rgba(0,0,0,0.05), -10px 20px 5px rgba(0,0,0,0.05);
-            flex-wrap: wrap;
-            transform: matrix3d(150deg);
+            vertical-align: middle; 
+            text-shadow: 0px 15px 5px rgba(0,0,0,0.1), 10px 20px 5px rgba(0,0,0,0.05), -10px 20px 5px rgba(0,0,0,0.05);
+            -webkit-box-shadow: -11px 5px 15px 5px #000000; 
+            box-shadow: -11px 5px 15px 5px #000000;;
+            color: #CE5937;
+            /* border: 3px solid #CE5937; */
+            /* border: 1px; */
+    
+    }
+    
+    .hidden{
+        content-visibility: hidden;  
+    }
+    .match{background-color: #993300;
     }
     </style>
 </head>
@@ -54,7 +66,8 @@
 <body>
     <h1 class="title">משחק הזיכרון</h1>
     <h2 class="title">הפרויקט הראשון שלי</h2>
-    <div id="gameTable" class="myCards p-5 m-5">
+    <div id="gameTable" class="myCards p-5 m-5 d-flex flex-wrap row row-cols-6 
+    justify-content-center">
         <!-- <div>A</div>
         <div>A</div>
         <div>B</div>
