@@ -1,0 +1,31 @@
+body{
+    background-color: black
+}
+
+ #board{
+    justify-content: center;
+    background-color: darkolivegreen;
+    height: max-content;
+    width: 472px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.square{
+    justify-content: center;
+    background-color: rgb(211, 247, 141);
+    height: 150px;
+    width: 150px;
+    margin: 0.5%;
+    font-size: 15ch;
+}
+
+.massege{
+    position: absolute;
+    background-color: gold;
+    height: 472px;
+    width: 472px;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: xx-large;
+}
