@@ -48,9 +48,7 @@ transform: scale(1.3) translate(42px, 16px) skew(-12deg, 0deg);
 .myCards{
     min-height: 500px;
     gap: 50px;
-    background-color: black;
     overflow: hidden;
-    /* position: relative; */
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4,100px);
@@ -61,7 +59,6 @@ transform: scale(1.3) translate(42px, 16px) skew(-12deg, 0deg);
 }
 
 .card{
-    /* background-color: orange; */
     gap: 1px;
     margin: 1px;
     text-align: center;
@@ -95,6 +92,10 @@ content-visibility: hidden;
 background: transparent url(https://image.shutterstock.com/image-photo/beautiful-texture-decorative-venetian-stucco-260nw-1193660509.jpg);
 
 }
+.card:hover {
+  transform:matrix();
+}
+
 .match{
     background: transparent url("https://www.icezar.co.il/pub/123012/562-02-950x950-min.jpg?quality=65&height=380&mode=max") repeat scroll 28px 0px;
     gap: 1px;
@@ -111,9 +112,11 @@ background: transparent url(https://image.shutterstock.com/image-photo/beautiful
 
 <body>
     
-    <div class="title">משחק הזיכרון</div>
-    <!-- <div class="title" style="display: table-cell;">הפרויקט הראשון שלי</div> -->
-    <div id="p_table" class="players"></div>
+    <div class="title">
+        משחק הזיכרון
+    </div>
+     
+    <div id="p_table" class="players"> players: </div>
     <div id="gameTable" class="myCards p-5 m-5 d-flex flex-wrap row row-cols-6 
     justify-content-center">
     </div>
