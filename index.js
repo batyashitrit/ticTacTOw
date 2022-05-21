@@ -1,3 +1,5 @@
+
+
 let Game = [
   ["1", "2", "3"],
   ["4", "5", "6"],
@@ -12,9 +14,11 @@ let players = [
 ];
 
 let playNaw = players[0];
-let rowNum = 3;   // בשביל להגדיל את האורך של המערך הראשי לפי מספר השורות
 
-let arrMuve = [];    //מערך זיכרון למהלכים במשחק
+let arrMuve = []; //מערך זיכרון למהלכים במשחק
+let countMoves1 = { playNum: 1, moves: 0 }; // מונה שסופר מהלכים במשחק
+let arrCountMoves2 = []; // מערך שאליו יכנסו שיאי המשחקים
+let timeNow;
 
 
 //-------------------------------------------
@@ -52,7 +56,7 @@ function checkColumn() {
       if (Game[c][i] == Game[c + 1][i]) {
         counter++;
         console.log(counter + "Column");
-        winner()
+        winner();
       }
     }
   }
@@ -66,7 +70,7 @@ function checkSlant1() {
     if (Game[i][i] == Game[i + 1][i + 1]) {
       counter++;
       console.log(counter + "Slant1");
-      winner()
+      winner();
     }
   }
 }
@@ -75,11 +79,11 @@ function checkSlant1() {
 //2בדיקת אלכסון
 function checkSlant2() {
   let e = 0;
-  for (let i = 0; i < Game.length-1 ; i++) {
-    if (Game[(Game.length-1-i)][i] == Game[(Game.length-2-i)][i+1]) {
+  for (let i = 0; i < Game.length - 1; i++) {
+    if (Game[Game.length - 1 - i][i] == Game[Game.length - 2 - i][i + 1]) {
       counter++;
       console.log(counter + "Slant2");
-      winner()
+      winner();
     }
   }
 }
@@ -96,32 +100,113 @@ function findItemInArray(array, item) {
   }
 }
 
-
 //-------------------------------------------
 // פונקציית ניצחון
-function winner(){
-  if(counter == 2){
+function winner() {
+  if (counter == 2) {
     let endMassege = document.createElement("div");
-    endMassege.className= ("massege");
-    endMassege.innerText = `${playNaw.mark} is the winner`
+    endMassege.className = "massege";
+    endMassege.id = "endMassege";
+    endMassege.innerText = `${playNaw.mark} is the winner`;
     board.appendChild(endMassege);
+    // record()
+    clearInterval(timeNow)
+    upadateRecordAffterWin();
   }
 }
 
+//-------------------------------------------
+
+// פונקציית התחלת המשחק מחדש
+// כרגע כאשר לוחצים על הפונקציה והמשחק לא נגמר יש שגיאה בקונסול כי הוא לא מוצא איזה הודעה למחוק. כמו כן המשחק לא נספר בתור משחק אם לא הגיעו לניצחון
+function resetGame() {
+  timerGame()
+  Game = [
+    ["1", "2", "3"],
+    ["4", "5", "6"],
+    ["7", "8", "9"],
+  ];
+  counter = 0;
+  let allSqaure = document.querySelectorAll(".square");
+  allSqaure.forEach((v) => (v.innerText = ""));
+  countMoves1.moves = 0; // מאפס את מספר המהלכים
+  let messagaDel = document.getElementById("endMassege");
+  messagaDel.parentNode.removeChild(messagaDel);
+  
+}
+
+//-------------------------------------------
+
 //פונקציית כפתור שמוחק מהלך
 //עוד לא הספקתי להכין את הפונקצייה
-  btnLastMove.onclick = (e) =>{
-    alert("hhhh")
-  //   square.innerText
-  //  arrMuve[length-1]
+// btnLastMove.onclick = (e) =>{
+//   alert("hhhh")
+// //   square.innerText
+//  arrMuve[length-1]
 
-  } 
+// }
 
+//-------------------------------------------
 
+function upadateRecordAffterWin() {
+  arrCountMoves2.push(Object.assign({}, countMoves1));
+  countMoves1.moves = 0;
+  countMoves1.playNum++;
+}
+
+//-------------------------------------------
+
+// פונקציה שמוסיפה כפתור של שיא וכפתור של משחק חדש.אולי להוסיף פה את כל הכפתורים?
+function buildButton() {
+  let recordButton = document.createElement("button");
+  recordButton.id = "recordButton";
+  recordButton.innerText = "Show record";
+  board.appendChild(recordButton);
+  let newGameButton = document.createElement("button");
+  newGameButton.id = "newGameButton";
+  newGameButton.innerText = "Start a new game";
+  board.appendChild(newGameButton);
+  newGameButton.onclick = () => {
+    resetGame();
+  };
+}
+
+//-------------------------------------------
+
+// פונקצית בדיקה של המשחק עם הכי מעט מהלכים
+
+function record() {
+  document.getElementById("recordButton").onclick = function () {
+    if (countMoves1.playNum == 1) {
+      alert(`There is no record yet`);
+    } else {
+      let arrBestScore = arrCountMoves2.map((v) => v.moves);
+      bestScore = Math.min(...arrBestScore);
+      let arrPlayRecord = arrCountMoves2.filter((v) => v.moves == bestScore);
+      let numBestScore = arrPlayRecord.map((v) => v.playNum);
+      numBestScore = numBestScore.toString().replaceAll(",", " and ");
+      alert(`The record is ${bestScore} in game number ${numBestScore}`);
+    }
+  };
+}
+
+//-------------------------------------------
+//פונקצייה לטיימר
+
+function timerGame(){
+  let timeIndex = 0
+  timeNow = setInterval(myTimer,1000);
+
+  function myTimer() {
+    timeIndex = timeIndex+1;
+    document.getElementById("timer").innerText = timeIndex;
+  }
+}
 
 
 //-------------------------------------------
 function startGame() {
+  timerGame()
   for (i in Game) {
     for (let s = 0; s < Game[i].length; s++) {
       let elem = document.createElement("div");
@@ -131,26 +216,26 @@ function startGame() {
 
       elem.onclick = (e) => {
         let square = e.target;
-        if(square.innerText==""){
-
+        countMoves1.moves++;
+        if (square.innerText == "") {
           arrMuve.push(square.id);
-          console.log(arrMuve);
 
-          console.log(playNaw);
           square.innerText = playNaw.mark; //הכנסת הסימון למשבצת לפי השחקן שמשחק עכשיו
-  
+
           findItemInArray(Game, square.id); //הכנסת סימון של השחקן למיקום הנכון במערך
 
-          checkSlant1();   //בדיקות האם יש ניצחון
+          checkSlant1(); //בדיקות האם יש ניצחון
           checkSlant2();
           checkRow();
           checkColumn();
-
-          changePleyer();  //תור מתחלף
+          changePleyer(); //תור מתחלף
+          record();
         }
-      }
+      };
     }
   }
+  buildButton();
 }
 
 startGame();
+

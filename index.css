@@ -1,5 +1,22 @@
+
+
 body{
     background-color: black
+}
+
+#timer{
+    background-color: red;
+    height: 50px;
+    width: 200px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: x-large
+
+}
+
+h1{
+    color: antiquewhite;
+    text-align: center;
 }
 
  #board{
@@ -10,6 +27,8 @@ body{
     display: flex;
     flex-wrap: wrap;
     text-align: center;
+    margin: auto;
+    /* margin-top: 100px; */
 }
 .square{
     justify-content: center;
@@ -28,4 +47,7 @@ body{
     flex-wrap: wrap;
     text-align: center;
     font-size: xx-large;
+}
+#recordButton{
+    justify-content: left;
 }
