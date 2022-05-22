@@ -1,0 +1,72 @@
+
+
+body{
+    background-color: black
+}
+
+#timer{
+    background-color: red;
+    height: 50px;
+    width: 200px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: x-large
+
+}
+
+h1{
+    color: antiquewhite;
+    text-align: center;
+    font-size: 70px;
+    /* top: 200px; */
+}
+
+ #board{
+    justify-content: center;
+    /* float: left; */
+    /* width: 50%; */
+    background-color: darkolivegreen;
+    height: max-content;
+    width: 472px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    margin: auto;
+    grid-row: auto;
+    
+    /* margin-top: 100px; */
+    
+}
+.square{
+    justify-content: center;
+    background-color: black;
+    height: 150px;
+    width: 150px;
+    margin: 0.5%;
+    font-size: 15ch;
+    text-decoration-color: antiquewhite;
+    color: antiquewhite;
+}
+
+.massege{
+    position: absolute;
+    background-color: gold;
+    height: 472px;
+    width: 472px;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.btn {
+    display:block;
+    justify-content:right;
+    flex-direction: column;
+    padding-top: 20px;
+    right: 200px;
+    top: 150px;
+    width: 200px;
+    margin: 20px auto;
+    height: 50px;
+    font-size: large;
+  }
