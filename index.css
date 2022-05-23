@@ -1,56 +1,3 @@
-/* 
-
-body{
-    background-color: black
-}
-
-#timer{
-    background-color: red;
-    height: 50px;
-    width: 200px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: x-large
-
-}
-
-h1{
-    color: antiquewhite;
-    text-align: center;
-}
-
- #board{
-    justify-content: center;
-    background-color: darkolivegreen;
-    height: max-content;
-    width: 472px;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    margin: auto;
-   
-}
-.square{
-    justify-content: center;
-    background-color: rgb(211, 247, 141);
-    height: 150px;
-    width: 150px;
-    margin: 0.5%;
-    font-size: 15ch;
-}
-
-.massege{
-    position: absolute;
-    background-color: gold;
-    height: 472px;
-    width: 472px;
-    flex-wrap: wrap;
-    text-align: center;
-    font-size: xx-large;
-}
-#recordButton{
-    justify-content: left;
-} */
 
 
 
@@ -59,12 +6,13 @@ body{
 }
 
 #timer{
-    background-color: red;
+    background-color: rgb(254, 254, 254);
     height: 50px;
     width: 200px;
     border-radius: 50%;
     text-align: center;
     font-size: x-large
+    
 
 }
 
