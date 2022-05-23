@@ -8,6 +8,7 @@ let Game = [
 let counter = 0;
 let board = document.getElementById("board");
 let btnLastMove = document.getElementById("btnLastMove");
+let btnUploadGame = document.getElementById("btnUploadGame");
 let players = [
   { player: "player1", mark: "X" },
   { player: "player2", mark: "O" },
@@ -15,19 +16,23 @@ let players = [
 
 let playNaw = players[0];
 
-let arrMuve = []; //מערך זיכרון למהלכים במשחק
-squareMuve = []; //מערך זיכרון למהלך לפי משבצות
 let countMoves1 = { playNum: 1, moves: 0 }; // מונה שסופר מהלכים במשחק
 let arrCountMoves2 = []; // מערך שאליו יכנסו שיאי המשחקים
 let timeNow;
-let arrsaveGame = [] // מערך שיקבל את המשחק השמור
+
+let arrMuve = []; //מערך זיכרון למהלכים במשחק
+let squareMuve = []; //מערך זיכרון למהלך לפי משבצות
+
+let arrSaveGame = [] // מערך שיקבל את המשחק השמור
+let arrSaveMuve = []
+let arrSaveSquareMuve = []
 
 let counterX = 0;
 let counterO = 0;
 
 
 //-------------------------------------------
-//   :פונקציית החלפת שחקן
+//   :פונקציית החלפת שחקן V
 function changePleyer() {
   if (playNaw == players[0]) {
     playNaw = players[1];
@@ -37,7 +42,7 @@ function changePleyer() {
 }
 //-------------------------------------------
 
-//פונקציית בדיקת שורות
+//פונקציית בדיקת שורות V
 function checkRow() {
   for (c in Game) {
     counter = 0;
@@ -53,7 +58,7 @@ function checkRow() {
 counter = 0;
 // -----------------------------------------------
 
-//פונקציית בדיקת עמודות
+//פונקציית בדיקת עמודות V
 function checkColumn() {
   for (i in Game) {
     counterX = 0;
@@ -78,7 +83,7 @@ function checkColumn() {
 }
 
 //-------------------------------------------
-//1בדיקת אלכסון
+//1בדיקת אלכסון V
 function checkSlant1() {
   for (let i = 0; i < Game.length - 1; i++) {
     if (Game[i][i] == Game[i + 1][i + 1]) {
@@ -90,7 +95,7 @@ function checkSlant1() {
 }
 
 //-------------------------------------------
-//2בדיקת אלכסון
+//2בדיקת אלכסון V
 function checkSlant2() {
   counter = 0;
   for (let i = 0; i < Game.length - 1; i++) {
@@ -115,7 +120,7 @@ function findItemInArray(array, item) {
 }
 
 //-------------------------------------------
-// פונקציית ניצחון
+// פונקציית ניצחון V
 function winner() {
   if (counter == 2) {
     let endMassege = document.createElement("div");
@@ -131,10 +136,13 @@ function winner() {
 
 //-------------------------------------------
 
-// פונקציית התחלת המשחק מחדש
+// פונקציית התחלת המשחק מחדש V
 // כרגע כאשר לוחצים על הפונקציה והמשחק לא נגמר יש שגיאה בקונסול כי הוא לא מוצא איזה הודעה למחוק. כמו כן המשחק לא נספר בתור משחק אם לא הגיעו לניצחון
 function resetGame() {
   timerGame()
+  arrMuve = []; 
+  squareMuve = []; 
+
   Game = [
     ["1", "2", "3"],
     ["4", "5", "6"],
@@ -151,7 +159,7 @@ function resetGame() {
 
 //-------------------------------------------
 
-// פונקציית כפתור שמוחק מהלך
+// פונקציית כפתור שמוחק מהלך V
 
 btnLastMove.onclick = (e) =>{
   let outIndex = arrMuve[arrMuve.length-1][2]    //מיקום מערך חיצוני- ציר איקס
@@ -191,7 +199,7 @@ function buildButton() {
 
 //-------------------------------------------
 
-// פונקצית בדיקה של המשחק עם הכי מעט מהלכים
+// פונקצית בדיקה של המשחק עם הכי מעט מהלכים V
 
 function record() {
   document.getElementById("recordButton").onclick = function () {
@@ -209,7 +217,7 @@ function record() {
 }
 
 //-------------------------------------------
-//פונקצייה לטיימר
+//פונקצייה לטיימר V
 
 function timerGame(){
   let timeIndex = 0
@@ -224,29 +232,41 @@ function timerGame(){
 //-------------------------------------------
 // פונקציה לשמירת משחק
 
+//צריך לשמור פה את כל נתוני המשחק, כרגע זה רק הנתונים של שמירת המהלכים
 function saveGame(){
   btnSaveGame.onclick = () =>{
-    arrsaveGame = Game
+    arrSaveGame = Game;
+    arrSaveMuve = arrMuve;
+    arrSaveSquareMuve = squareMuve;
+
+    console.log(arrSaveGame,arrSaveMuve,arrSaveSquareMuve)
     alert("The game is saved")
-    console.log(arrsaveGame)
   }
 }
 
 //-------------------------------------------
+// השמה של משחק שמור
 
-function uploadGame(){
+// צריך לתאם את כל הנתונים של המשחק השמור, ואז גם לתאם פיזית למשבצות
+
   btnUploadGame.onclick = () => {
-    resetGame()
-    for (i in Game) {
-      for (let s = 0; s < Game[i].length; s++) {
-        let elem = document.createElement("div");
-        elem.className = "square";
-        board.appendChild(elem);
-        elem.id = Game[i][s];
-}  
-    }
+
+    Game = arrSaveGame;                    //השמה של מפת המשחק השמור- המערך הראשי
+    arrMuve = arrSaveMuve;                 //השמה של מערך המהלכים
+    squareMuve = arrSaveSquareMuve;        //השמה של מערך המשבצות שסומנו במשחק השמור. איך נחזיר להן פיזית את הסימון?
+
+
+   
+//     resetGame()
+//     for (i in Game) {
+//       for (let s = 0; s < Game[i].length; s++) {
+//         let elem = document.createElement("div");
+//         elem.className = "square";
+//         board.appendChild(elem);
+//         elem.id = Game[i][s];
+// }  
+//     }
   }
-}
 
 
 //-------------------------------------------
